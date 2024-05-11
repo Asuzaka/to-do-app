@@ -69,6 +69,17 @@ body {
     background-color: #ffffff;
     padding: 30px 20px;
     margin-top: 10px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    &>li {
+        border: 1px solid #0d75ec;
+        border-radius: 7px;
+        padding: 5px 10px;
+        position: relative;
+    }
 }
 
 .task {
@@ -99,4 +110,25 @@ body {
     height: 100%;
     width: 40px;
     border-radius: 5px;
+}
+
+.edit,
+.delete {
+    color: #066acd;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.edit {
+    right: 45px;
+}
+
+.completed {
+    text-decoration: line-through black;
+}
+
+.hide {
+    display: none;
 }

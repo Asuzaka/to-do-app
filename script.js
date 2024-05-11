@@ -1,55 +1,43 @@
-
-document.querySelector('#push').onclick = function () {
-    if (document.querySelector('#newtask input').value.length == 0) {
-        alert("Ma'lumot bo'sh bo'lishi mumkin emas!")
+"use strict"
+const ul = document.querySelector('#tasks')
+const button = document.querySelector('#push')
+button.addEventListener('click', () => {
+    if (document.querySelector('input').value == '') {
+        alert("Bo'sh bo'lishi mumkin emas")
     }
-
     else {
-        document.querySelector('#tasks').innerHTML += `
-            <div class="task">
-                <span id="taskname">
-                    ${document.querySelector('#newtask input').value}
-                </span>
-                <button class="delete">
-                    <i class="far fa-trash-alt"></i>
-                </button>
-                <button class="edit">
-                    <i class="fa-solid fa-pen"></i>
-                </button>
-            </div>
-        `;
-        var new_tasks = document.querySelectorAll('.edit');
-        var current_tasks = document.querySelectorAll(".delete");
-        for (var i = 0; i < new_tasks.length; i++) {
-            new_tasks[i].onclick = function () {
-                newData = prompt()
-                let c = current_tasks
-                if (newData === '') {
-                    alert("Ma'lumot bo'sh bo'lishi mumkin emas!")
-                    return;
-                }
-                else {
-                    this.parentNode.innerHTML = `
-                <span id="taskname">
-                    ${newData}
-                </span>
-                <button class="delete">
-                    <i class="far fa-trash-alt"></i>
-                </button>
-                <button class="edit">
-                    <i class="fa-solid fa-pen"></i>
-                </button>`
-                }
-            }
+        const li = document.createElement('li')
+        const a = document.createElement('a')
+        a.textContent = document.querySelector('input').value
+        ul.prepend(li)
+        document.querySelector('input').value = ''
+        const spanDelete = document.createElement('span')
+        const spanEdit = document.createElement('span')
+        li.prepend(a)
+        li.append(spanEdit, spanDelete)
+        spanEdit.className = 'edit fa-solid fa-pen'
+        spanDelete.className = 'delete fa-solid fa-trash'
+    }
+})
+
+
+ul.addEventListener('click', (e) => {
+    if (e.target.nodeName == 'LI') {
+        e.target.classList.toggle('completed')
+    }
+    else if (e.target.className == 'edit fa-solid fa-pen') {
+        document.querySelector('input').value = e.target.parentElement.textContent
+        const save = document.querySelector('#save')
+        save.classList.toggle('hide')
+        button.classList.toggle('hide')
+        save.onclick = function () {
+            e.target.previousElementSibling.textContent = document.querySelector('input').value
+            document.querySelector('input').value = ''
+            save.classList.toggle('hide')
+            button.classList.toggle('hide')
         }
     }
-    for (var i = 0; i < current_tasks.length; i++) {
-        current_tasks[i].onclick = function () {
-            this.parentNode.remove();
-        }
+    else if (e.target.className == 'delete fa-solid fa-trash') {
+        e.target.parentElement.remove()
     }
-
-}
-
-
-
+})
