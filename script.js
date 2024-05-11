@@ -1,9 +1,12 @@
 "use strict"
 const ul = document.querySelector('#tasks')
 const button = document.querySelector('#push')
+const warning = document.getElementById('modal')
+const overlay = document.getElementById('overlay')
+const closeBtn = document.getElementById('closebtn')
 button.addEventListener('click', () => {
     if (document.querySelector('input').value == '') {
-        alert("Bo'sh bo'lishi mumkin emas")
+        removeHidden()
     }
     else {
         const li = document.createElement('li')
@@ -41,3 +44,26 @@ ul.addEventListener('click', (e) => {
         e.target.parentElement.remove()
     }
 })
+
+const addHiden = () => {
+    warning.classList.add('hidden')
+    overlay.classList.add('hidden')
+}
+
+closeBtn.addEventListener('click', (e) => {
+    addHiden()
+})
+
+overlay.addEventListener('click', (e) => {
+    addHiden()
+})
+document.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape') {
+        addHiden()
+    }
+})
+const removeHidden = () => {
+    warning.classList.remove('hidden')
+    overlay.classList.remove('hidden')
+}
+
