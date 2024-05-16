@@ -73,7 +73,7 @@ ul.addEventListener('click', (e) => {
         const infdeletion = e.target.previousElementSibling.previousElementSibling.textContent
         if (list.includes(infdeletion)) {
             const infdelLocation = list.indexOf(infdeletion)
-            list[infdelLocation].remove
+            list.splice(infdelLocation, 1)
         }
         else {
             console.log('Problem is in Deleting process of LocalStorage')
